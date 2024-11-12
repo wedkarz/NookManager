@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SWD="$( cd "$( dirname "$0" )" && pwd )"
-SMALI_VERSION="2.5.2"
+SMALI_VERSION="1.4.0"
 
 download()
 {
@@ -75,8 +75,10 @@ download "http://download.doozan.com/nook/NookTouchModManager-0.4.0.apk" "$DLDIR
 download "http://pool.apk.bazaarandroid.com/moonglo/com-amazon-venezia-201000-634745-98e61fd37521387e2e0b61be64a518b0.apk" "$DLDIR/"
 # download "https://smali.googlecode.com/files/baksmali-1.4.0.jar" "$DLDIR/"
 # download "https://smali.googlecode.com/files/smali-1.4.0.jar" "$DLDIR/"
-download "https://repo1.maven.org/maven2/org/smali/baksmali/$SMALI_VERSION/baksmali-$SMALI_VERSION.jar" "$DLDIR/"
-download "https://repo1.maven.org/maven2/org/smali/smali/$SMALI_VERSION/smali-$SMALI_VERSION.jar" "$DLDIR/"
+# download "https://repo1.maven.org/maven2/org/smali/baksmali/$SMALI_VERSION/baksmali-$SMALI_VERSION.jar" "$DLDIR/"
+# download "https://repo1.maven.org/maven2/org/smali/smali/$SMALI_VERSION/smali-$SMALI_VERSION.jar" "$DLDIR/"
+download "https://repo.huaweicloud.com/repository/maven/org/smali/baksmali/$SMALI_VERSION/baksmali-$SMALI_VERSION.jar" "$DLDIR/"
+download "https://repo.huaweicloud.com/repository/maven/org/smali/smali/$SMALI_VERSION/smali-$SMALI_VERSION.jar" "$DLDIR/"
 
 if [ ! -d "$BDIR/nook_rescue" ]; then
   mkdir "$BDIR/nook_rescue"
