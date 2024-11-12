@@ -5,3 +5,10 @@ git clone https://github.com/doozan/NookManager.git
 cd NookManager
 
 ./build.sh
+
+
+### MacOS
+
+Install `dos2unix`
+
+`brew install dos2unix`
