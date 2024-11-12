@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SWD="$( cd "$( dirname "$0" )" && pwd )"
+SMALI_VERSION="2.5.2"
 
 download()
 {
@@ -72,8 +73,10 @@ download "https://github.com/CyanogenMod/android_frameworks_base/blob/jellybean/
 download "https://s3.amazonaws.com/github/downloads/yiselieren/ReLaunch/ReLaunch-1.3.8.apk" "$DLDIR/"
 download "http://download.doozan.com/nook/NookTouchModManager-0.4.0.apk" "$DLDIR/"
 download "http://pool.apk.bazaarandroid.com/moonglo/com-amazon-venezia-201000-634745-98e61fd37521387e2e0b61be64a518b0.apk" "$DLDIR/"
-download "https://smali.googlecode.com/files/baksmali-1.4.0.jar" "$DLDIR/"
-download "https://smali.googlecode.com/files/smali-1.4.0.jar" "$DLDIR/"
+# download "https://smali.googlecode.com/files/baksmali-1.4.0.jar" "$DLDIR/"
+# download "https://smali.googlecode.com/files/smali-1.4.0.jar" "$DLDIR/"
+download "https://repo1.maven.org/maven2/org/smali/baksmali/$SMALI_VERSION/baksmali-$SMALI_VERSION.jar" "$DLDIR/"
+download "https://repo1.maven.org/maven2/org/smali/smali/$SMALI_VERSION/smali-$SMALI_VERSION.jar" "$DLDIR/"
 
 if [ ! -d "$BDIR/nook_rescue" ]; then
   mkdir "$BDIR/nook_rescue"
@@ -101,20 +104,20 @@ if [ ! -d "$BDIR/patched-jars" ]; then
 
   cd "$BDIR/patched-jars"
 
-  java -jar "$DLDIR/baksmali-1.4.0.jar" -o android.policy android.policy.orig.jar
-  java -jar "$DLDIR/baksmali-1.4.0.jar" -o services services.orig.jar
+  java -jar "$DLDIR/baksmali-$SMALI_VERSION.jar" -o android.policy android.policy.orig.jar
+  java -jar "$DLDIR/baksmali-$SMALI_VERSION.jar" -o services services.orig.jar
 
   patch -p1 < android.policy.patch
   patch -p1 < services.patch
 
   unzip android.policy.orig.jar -d android.policy-bin
-  java -jar "$DLDIR/smali-1.4.0.jar" -o android.policy-bin/classes.dex android.policy
+  java -jar "$DLDIR/smali-$SMALI_VERSION.jar" -o android.policy-bin/classes.dex android.policy
   cd android.policy-bin
   zip -9 ../android.policy.jar *
   cd ..
 
   unzip services.orig.jar -d services-bin
-  java -jar "$DLDIR/smali-1.4.0.jar" -o services-bin/classes.dex services
+  java -jar "$DLDIR/smali-$SMALI_VERSION.jar" -o services-bin/classes.dex services
   cd services-bin
   zip -9 ../services.jar *
   cd "$SWD"
